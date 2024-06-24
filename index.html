@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban</title>
+    <link rel="stylesheet" href="main.css">
+    <!-- favicon -->
+    <link rel="icon" type="image/icon-x" href="images/logo1.svg">
+</head>
+
+<body>
+    <!-- header -->
+    <header>
+        <div class="logo">
+            <img src="images/logo1.svg" alt="">
+            <span>kanban</span>
+        </div>
+        <div class="head-content">
+            <h1 id="board-title">Task Management</h1>
+            <div class="board-actions">
+                <button id="add-task-btn" class="disabled">+ Add New Task</button>
+                <div class="dropdown">
+                    <button id="more-options-btn" class="disabled">⋮</button>
+                    <div class="dropdown-content">
+                        <a href="#" class="edit" id="edit-board-btn">Edit Board</a>
+                        <a href="#" class="delete" id="delete-board-btn">Delete Board</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- section -->
+    <section>
+        <!-- aside -->
+        <aside>
+            <div class="sidebar-header">
+                <p id="board-count">All Boards (0)</p>
+            </div>
+            <ul id="board-list"></ul>
+            <p id="create-board-btn"><img class="flu_img" src="images/fluent.svg" alt=""> + Create New Board</p>
+
+            <div class="theme-card">
+                <img src="images/sun.png" alt="Light Mode">
+                <label class="switch" id="theme-toggle">
+                    <input type="checkbox" id="theme-input">
+                    <span class="slider round"></span>
+                </label>
+                <img src="images/moon.png" alt="Dark Mode">
+            </div>
+            <div class="sidebar-footer">
+                <div id="hide-sidebar-btn"><img src="images/eye-slash.png" alt=""><span>Hide Sidebar</span></div>
+            </div>
+        </aside>
+        <!-- main -->
+        <main>
+            <div id="tasks-container">
+                <div class="content-task">
+                    <p>This board is empty. Create a new column to get started.</p>
+                    <button type="button" id="create-board-main-btn">+ Add New Board</button>
+                </div>
+            </div>
+        </main>
+    </section>
+
+    <!-- Board Modal -->
+    <div id="board-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create New Board</h2>
+            <input type="text" id="board-name-input" placeholder="Board Name">
+            <button id="save-board-btn">Save</button>
+        </div>
+    </div>
+
+    <!-- Task Modal -->
+    <div id="task-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add New Task</h2>
+            <input type="text" id="task-title-input" placeholder="Title">
+            <input type="text" id="task-desc-input" placeholder="Description">
+            <input type="text" id="task-subtasks-input" placeholder="Subtasks (comma separated)">
+            <select id="task-status-input">
+                <option value="todo">To Do</option>
+                <option value="doing">Doing</option>
+                <option value="done">Done</option>
+            </select>
+            <button id="save-task-btn">Save Task</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
