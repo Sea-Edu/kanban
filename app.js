@@ -30,25 +30,12 @@ document.addEventListener("DOMContentLoaded", () => {
   showSidebarBtn.style.display = "none";
   document.body.appendChild(showSidebarBtn);
 
-
- const loadBoardsFromQuery = () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const boardIndex = urlParams.get('board');
-
-  document.querySelector(`[data-index='${boardIndex}']`).click()
-  // if (boardIndex !== null) {
-  //   loadBoard(parseInt(boardIndex, 10)); // Parse as integer
-  // } else {
-  //   loadBoard(0); // Load the first board if no query param
-  // }
-};
   const loadBoards = () => {
     const boards = JSON.parse(localStorage.getItem("boards")) || [];
     boardList.innerHTML = "";
     document.getElementById(
       "board-count"
     ).textContent = `All Boards (${boards.length})`;
-
 
     boards.forEach((board, index) => {
       const li = document.createElement("li");
@@ -68,6 +55,13 @@ document.addEventListener("DOMContentLoaded", () => {
           li.classList.remove("active");
         });
         li.classList.add("active");
+
+        // Update query parameter in URL
+        const url = new URL(window.location.href);
+        const params = new URLSearchParams(url.search);
+        params.set("activeBoardIndex", index.toString());
+        url.search = params.toString();
+        window.history.replaceState({}, '', url.toString());
       });
       boardList.appendChild(li);
     });
@@ -78,9 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const board = boards[index];
     boardTitle.textContent = board.name;
     tasksContainer.innerHTML = "";
-    
-     if (!board) return; 
-     addTaskBtn.dataset.index = index; 
 
     board.columns.forEach((column, colIndex) => {
       const columnDiv = document.createElement("div");
@@ -270,60 +261,8 @@ document.addEventListener("DOMContentLoaded", () => {
   hideSidebarBtn.addEventListener("click", hideSidebar);
   showSidebarBtn.addEventListener("click", showSidebar);
 
-  loadBoards();
-
-  
-
-  // Event listener to handle board clicks and update query parameter
-  boardList.addEventListener("click", (event) => {
-    if (event.target.tagName === "LI") {
-      const index = parseInt(event.target.dataset.index, 10);
-      if (!isNaN(index)) {
-        updateQueryParameter("board", index);
-        loadBoard(index);
-      }
-    }
-  });
-
-  // Function to update query parameters
-  const updateQueryParameter = (key, value) => {
+  // Function to read query parameter from URL
+  const getQueryParam = (param) => {
     const urlParams = new URLSearchParams(window.location.search);
-    urlParams.set(key, value);
-    const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
-    window.history.replaceState({}, "", newUrl);
+    return urlParams.get(param);
   };
-
-  // Function to initialize the application
-  const initializeApp = () => {
-    loadBoardsFromQuery();
-    // Other initialization tasks
-    // ...
-  };
-
-  // Call initializeApp when DOM content is loaded
-  initializeApp();
-
-  // theme toggle
-  // Check for saved theme in local storage
-  if (localStorage.getItem("theme") === "dark") {
-    console.log("Dark mode enabled from local storage");
-    body.classList.add("dark-mode");
-    themeToggle.checked = true;
-  } else {
-    console.log("Light mode enabled from local storage");
-    body.classList.add("light-mode");
-  }
-
-  themeToggle.addEventListener("change", function () {
-    console.log("salom");
-    if (themeToggle.checked) {
-      console.log("Switching to dark mode");
-      body.classList.replace("light-mode", "dark-mode");
-      localStorage.setItem("theme", "dark");
-    } else {
-      console.log("Switching to light mode");
-      body.classList.replace("dark-mode", "light-mode");
-      localStorage.setItem("theme", "light");
-    }
-  });
-});

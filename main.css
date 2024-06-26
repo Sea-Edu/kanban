@@ -189,7 +189,7 @@ aside {
     font-weight: 700;
     background-color: transparent;
     text-align: center;
-    margin: 10px 0 0 -11px;
+    margin: 20px 0 0 -25px;
     cursor: pointer;
     transition: all 300ms ease;
 }
@@ -296,7 +296,7 @@ input:checked+.slider:before {
     background-color: var(--white);
     margin: 15% auto;
     padding: 2rem 20px;
-    border: 1px solid var(--lines-light);
+    /* border: 1px solid var(--lines-light); */
     width: 320px;
     border-radius: 10px;
 }
@@ -324,27 +324,27 @@ input:checked+.slider:before {
     border: none;
     outline: none;
     margin-top: 15px;
-    border-bottom: 3px solid #ccc;
+    border: 1px solid #828FA340;
     border-radius: 5px;
     transition: 0.5s;
 }
 .dark-mode .modal-content input {
     color: var(--white);
-    border-bottom: 3px solid #ccc;
+    /* border-bottom: 3px solid #ccc; */
     background-color: var(--very-dark-grey);
 }
 .dark-mode .modal-content h2 {
     color: var(--white);
 }
-.modal-content input:focus+label,
+/* .modal-content input:focus+label,
 .modal-content input:not(:placeholder-shown)+label {
     transform: translateY(-30%);
     font-size: 0.6rem;
-}
+} */
 
-.modal-content input:not(:placeholder-shown) {
+/* .modal-content input:not(:placeholder-shown) {
     border-bottom: 3px solid #00bb00;
-}
+} */
 
 .modal-content button {
     display: block;
@@ -370,7 +370,10 @@ input:checked+.slider:before {
     padding: .5rem;
     margin-top: 20px;
 }
-
+.dark-mode #task-status-input{
+    background-color: var(--dark-grey);
+    color: var(--lines-light);
+}
 .sidebar-footer {
     position: absolute;
     bottom: 30px;
@@ -411,6 +414,7 @@ main {
     /* align-items: center; */
     padding: 2rem;
     border-top: 1px solid var(--lines-light);
+    flex-direction: row;
 }
 
 .dark-mode #tasks-container {
@@ -427,7 +431,7 @@ main {
 .content-task button {
     width: 174px;
     height: 48px;
-    margin: 40px 32%;
+    /* margin: 40px 32%; */
     font-size: 15px;
     font-weight: 700;
     color: white;
@@ -626,5 +630,58 @@ main {
         margin-top: 100%;
         font-size: 18px;
         text-align: center;
+    }
+}
+
+@media (max-width: 375px) {
+    .logo{
+        width: 135px !important;
+        padding: 1rem;
+        border: none;
+    }
+    .logo span{
+        font-size: 18px;
+    }
+    aside{
+        /* width: 100% !important; */
+        display: none;
+    }
+
+    #add-task-btn{
+        visibility: hidden;
+    }
+    #add-task-btn::after{
+        content: '+';
+        visibility: visible;
+        display: block;
+        align-items: center;
+        position: absolute;
+        background-color: var(--main-purple);
+        padding: 1rem 1.2rem;
+        border-radius: 20px;
+        top: 0px;
+        right: 35px;
+    }
+    #more-options-btn{
+        position: absolute;
+        right: -5px;
+    }
+    .board-actions{
+        position: absolute;
+        right: 0;
+    }
+    .dropdown{
+        position: absolute;
+        right: 5px;
+        /* top: 10px; */
+    }
+    .dropdown-content{
+        top: 50px;
+    }
+    .column{
+        width: auto;
+    }
+    #task-container{
+        flex-direction: column;
     }
 }
